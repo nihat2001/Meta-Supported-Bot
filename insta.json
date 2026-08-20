@@ -1,0 +1,170 @@
+{
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        -64
+      ],
+      "id": "c7db167a-47bc-4a9c-9a34-2f0bfab72405",
+      "name": "When clicking 'Test workflow'"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "imageUrl",
+              "value": "https://localbreaks.com.au/cdn/shop/files/Phillip_Island_Art_Print_I.png?v=1746784183&width=2048"
+            },
+            {
+              "name": "captionText",
+              "value": "Hello from n8n! 👋 This is an automated post. #n8n #automation #instagram"
+            },
+            {
+              "name": "igUserId",
+              "value": "17841438675120833"
+            },
+            {
+              "name": "accessToken",
+              "value": "IGAAecByX9OZBNBZAFlONFJUTGIwd3JYZAW9NclJTNVRGd1FCRDhhVE9vLWIycHFzemg1ZA1pBUWo2LWQtX0Rsc2NjTUt2ZAFNPZAldGbHlrR2VfOVdKRGtjX05NUVhyd3pXeXVUOHUzY2lQYUxXTmdibEhodUwtQVJJUFJ0b0VwVmJaZAwZDZD"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set Image, Caption & Account",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        176,
+        -64
+      ],
+      "id": "36d5b9dc-3786-46db-bbd0-54bedd81e6c7"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.instagram.com/v25.0/{{ $json.igUserId }}/media",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "image_url",
+              "value": "={{ $json.imageUrl }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $json.captionText }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $json.accessToken }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        384,
+        -64
+      ],
+      "id": "9aeb460b-e367-464f-b814-2df32a6ff524",
+      "name": "Creating Container ID"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.instagram.com/v25.0/{{ $('Set Image, Caption & Account').item.json.igUserId }}/media_publish",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $('Set Image, Caption & Account').item.json.accessToken }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        800,
+        -64
+      ],
+      "id": "8fde4420-f84a-4997-b85b-16ae19574354",
+      "name": "Publish Media"
+    },
+    {
+      "parameters": {},
+      "id": "ec9fe04e-e523-4918-8f5d-e0f1080da6bc",
+      "name": "5 saniyə gözlə",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        592,
+        -64
+      ],
+      "webhookId": "d1000000-0000-4000-8000-000000000003"
+    }
+  ],
+  "connections": {
+    "When clicking 'Test workflow'": {
+      "main": [
+        [
+          {
+            "node": "Set Image, Caption & Account",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Image, Caption & Account": {
+      "main": [
+        [
+          {
+            "node": "Creating Container ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creating Container ID": {
+      "main": [
+        [
+          {
+            "node": "5 saniyə gözlə",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5 saniyə gözlə": {
+      "main": [
+        [
+          {
+            "node": "Publish Media",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "c07f99e20b226162cc3dd308b63874f71e568b7e2911f0a2bbfbab816cce2de4"
+  }
+}
