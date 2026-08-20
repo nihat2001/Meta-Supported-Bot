@@ -107,7 +107,7 @@
     {
       "parameters": {},
       "id": "ec9fe04e-e523-4918-8f5d-e0f1080da6bc",
-      "name": "5 saniyə gözlə",
+      "name": "5 seconds",
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
@@ -144,14 +144,14 @@
       "main": [
         [
           {
-            "node": "5 saniyə gözlə",
+            "node": "5 seconds",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "5 saniyə gözlə": {
+    "5 seconds": {
       "main": [
         [
           {
