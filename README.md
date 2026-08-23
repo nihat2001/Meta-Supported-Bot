@@ -1,4 +1,4 @@
-# Meta-Supported-Bot# Meta-Supported-Bot
+# Meta-Supported-Bot# 
 
 A multi-platform automation bot solution designed to integrate Meta services (**Instagram** and **WhatsApp**) with Docker orchestration and ngrok tunneling.
 
