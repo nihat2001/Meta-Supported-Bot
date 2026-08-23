@@ -1,1 +1,13 @@
-# Meta-Supported-Bot
+# Meta-Supported-Bot# Meta-Supported-Bot
+
+A multi-platform automation bot solution designed to integrate Meta services (**Instagram** and **WhatsApp**) with Docker orchestration and ngrok tunneling.
+
+| Feature / Section | Detailed Overview |
+| :--- | :--- |
+| **Project Overview** | **Meta-Supported-Bot** simplifies communication workflows across Meta platforms. It provides automated handling for Instagram messages/posts and WhatsApp interactions inside lightweight Docker containers, integrated with ngrok for local webhook exposure. |
+| **Supported Integrations** | • **Instagram:** Configuration managed via `insta.json` (handles posts, media workflows, and automated messaging).<br>• **WhatsApp:** Configuration managed via `whatspp.json` (manages API payloads, triggers, and automated messaging). |
+| **Repository File Structure** | • **`docker-compose.yml`** — Docker container orchestration service definitions.<br>• **`.env.example`** — Environment variable template for storing sensitive Meta API keys and tokens.<br>• **`insta.json`** — JSON payload structure and parameters for Instagram workflow actions.<br>• **`whatspp.json`** — JSON payload structure and parameters for WhatsApp workflow actions.<br>• **`README.md`** — Project guidelines and instructions.<br>• **`.gitignore`** — System and key file exclusion configuration. |
+| **System Prerequisites** | • **Docker Desktop / Docker Engine** (Version 20.10+)<br>• **Docker Compose** (Version 2.0+)<br>• **ngrok Account & Auth Token** (Required to tunnel local webhooks for Meta API verification)<br>• **Meta Developer Account** (Active access for Instagram Graph API & WhatsApp Business API) |
+| **Installation & Setup** | **Step 1: Clone Repository**<br>```bash<br>git clone [https://github.com/nihat2001/Meta-Supported-Bot.git](https://github.com/nihat2001/Meta-Supported-Bot.git)<br>cd Meta-Supported-Bot<br>```<br><br>**Step 2: Environment Configuration**<br>```bash<br>cp .env.example .env<br>```<br>*Edit `.env` to input your Meta API secrets, tokens, and ngrok authentication key.*<br><br>**Step 3: Build & Deploy Container**<br>```bash<br>docker-compose up -d --build<br>``` |
+| **Exposing Webhooks via ngrok** | **1.** Start the ngrok tunnel to forward traffic to your bot port:<br>```bash<br>ngrok http 8080<br>```<br>**2.** Copy the generated HTTPS URL provided by ngrok.<br>**3.** Paste the forwarding URL into your Meta App Developer Dashboard under **Webhook Callback URL**. |
+| **Maintenance & Logging** | • **View Live Logs:** `docker-compose logs -f`<br>• **Restart Container:** `docker-compose restart`<br>• **Stop Container:** `docker-compose down` |
